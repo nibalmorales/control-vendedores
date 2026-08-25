@@ -54,6 +54,15 @@ class DashboardController extends Controller
             ->whereNull('hora_salida')
             ->count();
 
+        $sinSalidaAnteriores = Asistencia::whereDate(
+            'fecha',
+            '<',
+            $hoy
+        )
+        ->whereNotNull('hora_llegada')
+        ->whereNull('hora_salida')
+        ->count();
+
         $salidasAnticipadas = $asistenciasHoy
             ->filter(function ($asistencia) {
                 if (!$asistencia->hora_salida || !$asistencia->asignacion?->horario) {
@@ -368,6 +377,7 @@ class DashboardController extends Controller
                 'presentes',
                 'tardes',
                 'jornadasAbiertas',
+                'sinSalidaAnteriores',
                 'salidasAnticipadas',
                 'salidasFuera',
                 'actividadHoy',

@@ -268,6 +268,10 @@
         }
     }
 
+.logo {
+  width: 75px;
+  height: auto;
+}
 
     </style>
 </head>
@@ -282,56 +286,16 @@
 
         <div class="brand-icon">
 
-            <svg
-                width="62"
-                height="72"
-                viewBox="0 0 64 76"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-            >
-                <!-- Pin -->
-                <path
-                    d="M32 2
-                    C15.5 2 6 14.2 6 28
-                    C6 47 32 72 32 72
-                    C32 72 58 47 58 28
-                    C58 14.2 48.5 2 32 2Z"
-                    fill="#0F4C8A"
-                />
+           <img class="logo" src="img/logo_vectorizado.svg" alt="Photo Moment">
 
-                <!-- Fondo interior -->
-                <circle
-                    cx="32"
-                    cy="27"
-                    r="17"
-                    fill="white"
-                />
 
-                <!-- Cabeza -->
-                <circle
-                    cx="32"
-                    cy="22"
-                    r="6"
-                    fill="#0F4C8A"
-                />
-
-                <!-- Hombros -->
-                <path
-                    d="M20 39
-                    C21 31 26 28 32 28
-                    C38 28 43 31 44 39
-                    C40 42 36 44 32 44
-                    C28 44 24 42 20 39Z"
-                    fill="#0F4C8A"
-                />
-            </svg>
 
         </div>
 
                 <h1>Control de Campo</h1>
 
                 <p class="subtitle">
-                    PhotoMoment GT
+                    Guatemala
                 </p>
 
                 <h2 class="login-title">

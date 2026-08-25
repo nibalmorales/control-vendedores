@@ -37,6 +37,10 @@ class AsistenciaVendedorController extends Controller
         $esSupervisor =
             strtoupper($usuario->rol?->nombre ?? '') === 'SUPERVISOR';
 
+        $this->regularizarAsistenciasSinSalida(
+            $vendedor->id_vendedor
+        );
+
         $hoy = now()->toDateString();
         $diaActual = $this->obtenerCampoDia(now());
 
@@ -199,6 +203,10 @@ class AsistenciaVendedorController extends Controller
 
         $esSupervisor =
             strtoupper($usuario->rol?->nombre ?? '') === 'SUPERVISOR';
+
+        $this->regularizarAsistenciasSinSalida(
+            $vendedor->id_vendedor
+        );
 
         $ahora = now();
         $hoy = $ahora->toDateString();
@@ -536,6 +544,10 @@ class AsistenciaVendedorController extends Controller
             ->where(
                 'id_supervisor',
                 $usuario->id_usuario
+            )
+            ->where(
+                'id_asistencia',
+                $asistencia->id_asistencia
             )
             ->whereNull('hora_salida')
             ->first();
@@ -1208,6 +1220,61 @@ class AsistenciaVendedorController extends Controller
 
     /*
     |--------------------------------------------------------------------------
+    | REGULARIZAR JORNADAS ANTERIORES SIN SALIDA
+    |--------------------------------------------------------------------------
+    */
+
+    private function regularizarAsistenciasSinSalida(
+        int $idVendedor
+    ): void {
+
+        $estadoSinSalida = EstadoAsistencia::where(
+            'nombre',
+            'SIN_SALIDA'
+        )
+        ->where('activo', 1)
+        ->first();
+
+        if (!$estadoSinSalida) {
+            return;
+        }
+
+        $idsAsignaciones = Asignacion::where(
+            'id_vendedor',
+            $idVendedor
+        )
+        ->pluck('id_asignacion');
+
+        if ($idsAsignaciones->isEmpty()) {
+            return;
+        }
+
+        Asistencia::whereIn(
+            'id_asignacion',
+            $idsAsignaciones
+        )
+        ->whereDate(
+            'fecha',
+            '<',
+            now()->toDateString()
+        )
+        ->whereNotNull('hora_llegada')
+        ->whereNull('hora_salida')
+        ->where(
+            'id_estado_asistencia',
+            '!=',
+            $estadoSinSalida->id_estado_asistencia
+        )
+        ->update([
+            'id_estado_asistencia' =>
+                $estadoSinSalida->id_estado_asistencia,
+            'updated_at' => now(),
+        ]);
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
     | OBTENER ASISTENCIA ACTUAL
     |--------------------------------------------------------------------------
     */
@@ -1386,6 +1453,10 @@ class AsistenciaVendedorController extends Controller
             );
         }
 
+        $this->regularizarAsistenciasSinSalida(
+            $vendedor->id_vendedor
+        );
+
         $hoy = now()->toDateString();
 
         $diaActual =
@@ -1454,6 +1525,10 @@ class AsistenciaVendedorController extends Controller
                 'El usuario no tiene un perfil de campo activo asociado.'
             );
         }
+
+        $this->regularizarAsistenciasSinSalida(
+            $vendedor->id_vendedor
+        );
 
         $idsAsignaciones = Asignacion::where(
             'id_vendedor',
