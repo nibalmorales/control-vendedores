@@ -331,8 +331,7 @@
                 <h1>Control de Campo</h1>
 
                 <p class="subtitle">
-                    Control de Asistencia<br>
-                    en Punto de Venta
+                    PhotoMoment GT
                 </p>
 
                 <h2 class="login-title">
@@ -388,13 +387,13 @@
                 ¿Olvidaste tu contraseña?
             </a>
 
-            <div class="divider">
+            <!--<div class="divider">
                 <span>o</span>
             </div>
 
             <button type="button" class="google-button" disabled title="Disponible próximamente">
                 Continuar con Google
-            </button>
+            </button> -->
 
             <div class="security">
                 Acceso exclusivo para usuarios autorizados
