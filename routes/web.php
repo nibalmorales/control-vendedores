@@ -134,15 +134,6 @@ Route::middleware([
 |--------------------------------------------------------------------------
 | ADMIN y SUPERVISOR.
 |--------------------------------------------------------------------------
-|
-| ADMIN:
-|   Puede consultar y administrar toda la información.
-|
-| SUPERVISOR:
-|   Los controladores limitan la información a los vendedores
-|   pertenecientes a su equipo.
-|
-|--------------------------------------------------------------------------
 */
 
 Route::middleware([
@@ -173,6 +164,42 @@ Route::middleware([
         '/vendedores',
         [VendedorController::class, 'store']
     )->name('vendedores.store');
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | EDITAR VENDEDOR
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get(
+        '/vendedores/{id}/editar',
+        [VendedorController::class, 'edit']
+    )->name('vendedores.edit');
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | ACTUALIZAR VENDEDOR
+    |--------------------------------------------------------------------------
+    */
+
+    Route::put(
+        '/vendedores/{id}',
+        [VendedorController::class, 'update']
+    )->name('vendedores.update');
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | ACTIVAR / DESACTIVAR
+    |--------------------------------------------------------------------------
+    */
+
+    Route::patch(
+        '/vendedores/{id}/estado',
+        [VendedorController::class, 'cambiarEstado']
+    )->name('vendedores.estado');
 
 
     /*
@@ -290,16 +317,6 @@ Route::middleware([
 |--------------------------------------------------------------------------
 | VENDEDOR y SUPERVISOR.
 |--------------------------------------------------------------------------
-|
-| Ambos pueden:
-|
-| - Consultar su jornada
-| - Registrar llegada
-| - Registrar salida
-| - Consultar su asistencia
-| - Consultar su historial
-|
-|--------------------------------------------------------------------------
 */
 
 Route::middleware([
@@ -313,10 +330,12 @@ Route::middleware([
     | VISITAS DEL SUPERVISOR
     |--------------------------------------------------------------------------
     */
+
     Route::post(
         '/mi-jornada/ubicacion',
         [AsistenciaVendedorController::class, 'actualizarUbicacionSupervisor']
     )->name('supervisor.ubicacion.actualizar');
+
 
     Route::post(
         '/mi-jornada/visita/iniciar',
@@ -328,6 +347,8 @@ Route::middleware([
         '/mi-jornada/visita/finalizar',
         [AsistenciaVendedorController::class, 'finalizarVisita']
     )->name('supervisor.visita.finalizar');
+
+
     /*
     |--------------------------------------------------------------------------
     | MI JORNADA
@@ -435,8 +456,6 @@ Route::get('/', function () {
     /*
     |--------------------------------------------------------------------------
     | SUPERVISOR
-    |--------------------------------------------------------------------------
-    | También debe registrar su propia asistencia.
     |--------------------------------------------------------------------------
     */
 
