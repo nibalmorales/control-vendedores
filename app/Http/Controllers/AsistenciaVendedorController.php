@@ -244,13 +244,10 @@ class AsistenciaVendedorController extends Controller
             ]);
         }
 
-        if (
-            !$asignacion->horario ||
-            !$asignacion->horario->activo
-        ) {
+        if (!$asignacion->horario) {
             throw ValidationException::withMessages([
                 'ubicacion' =>
-                    'El horario asignado no está disponible.'
+                    'La asignación no tiene un horario configurado.'
             ]);
         }
 
@@ -926,13 +923,10 @@ class AsistenciaVendedorController extends Controller
             ]);
         }
 
-        if (
-            !$asignacion->horario ||
-            !$asignacion->horario->activo
-        ) {
+        if (!$asignacion->horario) {
             throw ValidationException::withMessages([
                 'ubicacion' =>
-                    'El horario asignado no está disponible.'
+                    'La asignación no tiene un horario configurado.'
             ]);
         }
 

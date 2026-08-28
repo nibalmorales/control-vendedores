@@ -225,6 +225,40 @@ Route::middleware([
         [PuntoVentaController::class, 'store']
     )->name('puntos-venta.store');
 
+        /*
+    |--------------------------------------------------------------------------
+    | EDITAR PUNTO DE VENTA
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get(
+        '/puntos-venta/{id}/editar',
+        [PuntoVentaController::class, 'edit']
+    )->name('puntos-venta.edit');
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | ACTUALIZAR PUNTO DE VENTA
+    |--------------------------------------------------------------------------
+    */
+
+    Route::put(
+        '/puntos-venta/{id}',
+        [PuntoVentaController::class, 'update']
+    )->name('puntos-venta.update');
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | ACTIVAR / DESACTIVAR PUNTO
+    |--------------------------------------------------------------------------
+    */
+
+    Route::patch(
+        '/puntos-venta/{id}/estado',
+        [PuntoVentaController::class, 'cambiarEstado']
+    )->name('puntos-venta.estado');
 
     /*
     |--------------------------------------------------------------------------
@@ -250,6 +284,23 @@ Route::middleware([
     )->name('horarios.store');
 
 
+    Route::get(
+    '/horarios/{id}/editar',
+    [HorarioController::class, 'edit']
+    )->name('horarios.edit');
+
+
+    Route::put(
+        '/horarios/{id}',
+        [HorarioController::class, 'update']
+    )->name('horarios.update');
+
+
+    Route::patch(
+        '/horarios/{id}/estado',
+        [HorarioController::class, 'cambiarEstado']
+    )->name('horarios.estado');
+
     /*
     |--------------------------------------------------------------------------
     | ASIGNACIONES
@@ -273,6 +324,41 @@ Route::middleware([
         [AsignacionController::class, 'store']
     )->name('asignaciones.store');
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | EDITAR ASIGNACIÓN
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get(
+        '/asignaciones/{id}/editar',
+        [AsignacionController::class, 'edit']
+    )->name('asignaciones.edit');
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | ACTUALIZAR ASIGNACIÓN
+    |--------------------------------------------------------------------------
+    */
+
+    Route::put(
+        '/asignaciones/{id}',
+        [AsignacionController::class, 'update']
+    )->name('asignaciones.update');
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | ACTIVAR / DESACTIVAR ASIGNACIÓN
+    |--------------------------------------------------------------------------
+    */
+
+    Route::patch(
+        '/asignaciones/{id}/estado',
+        [AsignacionController::class, 'cambiarEstado']
+    )->name('asignaciones.estado');
 
     /*
     |--------------------------------------------------------------------------
